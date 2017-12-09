@@ -499,6 +499,9 @@ nest::iaf_psc_exp_ps::propagate_( const double dt )
 
     S_.y2_ = P20 * ( P_.I_e_ + S_.y0_ ) + P21_ex * S_.y1_ex_
       + P21_in * S_.y1_in_ + expm1_tau_m * S_.y2_ + S_.y2_;
+
+    // lower bound of membrane potential
+    S_.y2_ = ( S_.y2_ < P_.U_min_ ? P_.U_min_ : S_.y2_ );
   }
   S_.y1_ex_ = S_.y1_ex_ * expm1_tau_ex + S_.y1_ex_;
   S_.y1_in_ = S_.y1_in_ * expm1_tau_in + S_.y1_in_;
